@@ -27,7 +27,7 @@ RUN pip install -U pip==22.0 && \
     git clone https://github.com/NVIDIA/apex && \
     sed -i 's/check_cuda_torch_binary_vs_bare_metal(torch.utils.cpp_extension.CUDA_HOME)/pass/g' apex/setup.py && \
     pip install packaging && \
-    pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext"  ./apex
+    pip install -v --global-option="--cpp_ext" --global-option="--cuda_ext"  ./apex
     
 
 RUN apt-get update -y
