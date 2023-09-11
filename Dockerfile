@@ -23,16 +23,11 @@ RUN apt-get update && apt-get install -y libglib2.0-0 libsm6 libxrender-dev libx
 # Install cython
 RUN conda install cython -y && conda clean --all
 
-# Installing APEX
-RUN pip install -U pip
-
-
-
-RUN git clone https://github.com/NVIDIA/apex
-RUN sed -i 's/check_cuda_torch_binary_vs_bare_metal(torch.utils.cpp_extension.CUDA_HOME)/pass/g' apex/setup.py
-RUN pip install packaging
-
-RUN pip install -v --no-cache-dir --config-settings="--cpp_ext" --config-settings="--cuda_ext" ./apex
+RUN pip install -U pip && \
+    git clone https://github.com/NVIDIA/apex && \
+    sed -i 's/check_cuda_torch_binary_vs_bare_metal(torch.utils.cpp_extension.CUDA_HOME)/pass/g' apex/setup.py && \
+    pip install packaging && \
+    pip install -v --no-cache-dir --config-settings="--cpp_ext" --config-settings="--cuda_ext" ./apex
 
 RUN apt-get update -y
 RUN apt-get install build-essential cmake -y
